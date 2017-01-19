@@ -2,10 +2,6 @@ package com.fxinnovation.seleniumqa.test.common;
 
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
-
-import org.apache.commons.lang3.StringUtils;
-import org.junit.After;
-import org.junit.Before;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -13,21 +9,26 @@ import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.safari.SafariDriver;
-import java.util.concurrent.TimeUnit;
 import com.fxinnovation.seleniumqa.util.ConfigReader;
-import org.openqa.selenium.Proxy;
 import org.openqa.selenium.UnexpectedAlertBehaviour;
 
 public class TestBaseSetup {
 
 	private ConfigReader configReader = ConfigReader.getInstance();
 	Properties config = configReader.getProperties("config.properties");
+	private CommonOperations common;
+	
+	public CommonOperations getCommon()
+	{
+		return common;
+	}
+	
+	protected WebDriver driver;
 
-	private WebDriver driver;
 
-	@Before
 	public void setup() {
 		initializeWebDriver();
+		common = new CommonOperations(getWebDriver());
 
 	}
 
